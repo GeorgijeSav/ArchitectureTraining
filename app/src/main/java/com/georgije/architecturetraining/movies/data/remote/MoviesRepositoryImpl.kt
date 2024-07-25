@@ -1,6 +1,6 @@
 package com.georgije.architecturetraining.movies.data.remote
 
-import com.georgije.architecturetraining.movies.domain.entity.MovieData
+import com.georgije.architecturetraining.movies.domain.MoviesRepository
 import javax.inject.Inject
 import retrofit2.Retrofit
 
@@ -9,10 +9,8 @@ class MoviesRepositoryImpl
 constructor(
 	private val moviesTransformer: MoviesTransformer,
 	retrofit: Retrofit,
-) {
+) : MoviesRepository {
 	private val api = retrofit.create(MoviesApi::class.java)
 
-	suspend fun fetchAllMovies(): List<MovieData> {
-		return moviesTransformer.transform(api.getMovies())
-	}
+	override suspend fun fetchAllMovies() = moviesTransformer.transform(api.getMovies())
 }
