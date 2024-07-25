@@ -21,7 +21,6 @@ class MoviesScreenViewModel @Inject constructor(
 	fun fetchAllMovies() {
 		viewModelScope.launch(Dispatchers.IO) {
 			val result: List<MovieData> = fetchMoviesUseCase.fetchMovies()
-			Thread.sleep(2000)
 			withContext(Dispatchers.Main) {
 				_movies.value = result
 			}
